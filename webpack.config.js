@@ -6,8 +6,12 @@ const extractPlugin = new ExtractTextPlugin({
     filename: 'main.css'
 })
 
+const APP_DIR = path.resolve(__dirname, 'src');
+
 module.exports = {
     entry: [
+            'webpack-dev-server/client?http://0.0.0.0:3000',
+            'webpack/hot/only-dev-server', //only prevets reload on syntax errors
             './src/js/app.js',
             'font-awesome/scss/font-awesome.scss'
            ], 
@@ -20,11 +24,9 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                options: {  
-                    presets: ['env']
-                }
+                test: /\.(js|jsx)?/,
+                include: APP_DIR,
+                loader: 'babel-loader'
             },
             {
                 test: /\.scss$/,
@@ -62,5 +64,8 @@ module.exports = {
             // compress: true
         }),
         extractPlugin
-    ]
+    ],
+    // resolve: {
+    //     extensions: ['.js', '.jsx'],
+    // }
 };
