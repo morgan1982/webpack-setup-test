@@ -7,7 +7,10 @@ const extractPlugin = new ExtractTextPlugin({
 })
 
 module.exports = {
-    entry: './src/js/app.js',
+    entry: [
+            './src/js/app.js',
+            'font-awesome/scss/font-awesome.scss'
+           ], 
     output: {
         // to create an absolute path
         path: path.resolve(__dirname, "dist"),
@@ -19,7 +22,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                options: {
+                options: {  
                     presets: ['env']
                 }
             },
@@ -35,6 +38,21 @@ module.exports = {
                 // the last element is applied first
                 //css-loader will make it understand the imports and then the style loader will allow the imports to the head otherwise we use the extract-text-webpack-plugin to extract the css to a separate file
                 use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /font-awesome\.config\.js/,
+                use: [
+                    {loader: 'style-loader'},
+                    {loader: 'font-awesome-loader'}
+                ]
+            },
+            {
+                test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                use: 'url-loader?limit=10000'
+            },
+            {
+                test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+                use: 'file-loader'
             }
         ]
     },

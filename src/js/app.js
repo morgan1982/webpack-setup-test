@@ -18,3 +18,6 @@ const buttonRndRange = document.querySelector('#randomRange');
 
 buttonRndInt.addEventListener('click', outputRandomInt);
 buttonRndRange.addEventListener('click', outputRandomRange);
+
+const beer = document.querySelector('#beer');
+beer.className += "fa fa-beer";
